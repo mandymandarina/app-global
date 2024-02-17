@@ -1,3 +1,40 @@
+/* .toolbar {
+  background-color: #673ab7; 
+}
+
+.movie-card {
+  width: 300px;
+  margin: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff; 
+  color: #333; 
+}
+
+.card-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #673ab7; 
+}
+
+.card-content {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.califications {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2196F3; 
+}
+
 .example-spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+ */

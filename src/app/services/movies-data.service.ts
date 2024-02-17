@@ -19,6 +19,7 @@ export class MoviesDataService {
    }
 
    getModifications(): Modifications[]  {
+  
     const storedData = localStorage.getItem('modifications');
 
     if (storedData === null) {
@@ -53,7 +54,8 @@ export class MoviesDataService {
     }
    } */
 
-   addModification(modificacion: Modifications): void {
+    addModification(modificacion: Modifications): void {
+      debugger;
     this.modifications.push(modificacion);
 
   // Obtiene las modificaciones existentes de localStorage
@@ -68,18 +70,19 @@ export class MoviesDataService {
   // Actualiza localStorage con el array modificado
   localStorage.setItem('modifications', JSON.stringify(arregloModificaciones));
    } 
-
-   deleteMovie(modificacion: Modifications) {
+ 
+    deleteMovie(modificacion: Modifications) {
+      debugger;
       for(let i= 0; this.modifications.length; i++){
         if(modificacion == this.modifications[i]){
           this.modifications.splice(i, 1);
-          localStorage.setItem('modificationsAdd', JSON.stringify(this.modifications))
+          localStorage.setItem('modifications', JSON.stringify(this.modifications))
         } 
 
       }
-   }
+   } 
 
-  getSeriesDetails(seriesId: string): Observable<any> {
+  /* getSeriesDetails(seriesId: string): Observable<any> {
     const headers = new HttpHeaders({
       'X-RapidAPI-Key': this.apiKey,
       'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
@@ -88,6 +91,6 @@ export class MoviesDataService {
     const url = `${this.apiUrl.replace('{seriesId}', seriesId)}`;
 
     return this.http.get(url, { headers });
-  }
+  } */
 }
 

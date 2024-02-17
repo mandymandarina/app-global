@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Modifications } from 'src/app/models/modifications';
+
 
 @Component({
   selector: 'app-movie-add',
@@ -8,7 +9,9 @@ import { Modifications } from 'src/app/models/modifications';
 })
 export class MovieAddComponent implements OnInit {
   title: string | undefined;
-  description: string | undefined;
+  resume: string | undefined;
+
+  @Output() movieAdded = new EventEmitter<Modifications>();
 
   constructor() { }
 
@@ -17,8 +20,15 @@ export class MovieAddComponent implements OnInit {
 
 
   addMovie(){
-    debugger;
-   console.log(this.title, this.description);
+  debugger;
+  this.movieAdded.emit({
+    title: this.title,
+    resume: this.resume,
+    califications: true
+
+  })
+  this.title = '',
+  this.resume= ''
    
   }
 

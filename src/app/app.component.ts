@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
               private _dialog:MatDialog) { }
 
   ngOnInit(): void {
-    this.getSeriesDetails();
+    //this.getSeriesDetails();
   }
 
  openAddMovie() {
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  getSeriesDetails() {
+  /* getSeriesDetails() {
     this.movieService.getSeriesDetails(this.seriesId)
       .subscribe({
         next: (data: any) => {
@@ -57,6 +57,6 @@ export class AppComponent implements OnInit {
           }
         }
       });
-    }
+    } */
     
 }

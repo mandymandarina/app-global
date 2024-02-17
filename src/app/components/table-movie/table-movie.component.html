@@ -1,3 +1,7 @@
 
-<app-movie-add></app-movie-add>
-<p>table-movie works!</p>
+<app-movie-add (movieAdded)="addModifications($event)"></app-movie-add>
+<div>
+<app-movies *ngFor = "let modification of modifications" [modifications]="modification"
+></app-movies>
+</div>
+
