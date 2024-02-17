@@ -55,7 +55,6 @@ export class MoviesDataService {
    } */
 
     addModification(modificacion: Modifications): void {
-      debugger;
     this.modifications.push(modificacion);
 
   // Obtiene las modificaciones existentes de localStorage
@@ -72,7 +71,6 @@ export class MoviesDataService {
    } 
  
     deleteMovie(modificacion: Modifications) {
-      debugger;
       for(let i= 0; this.modifications.length; i++){
         if(modificacion == this.modifications[i]){
           this.modifications.splice(i, 1);

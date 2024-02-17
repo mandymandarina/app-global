@@ -1,9 +1,5 @@
-
-<!-- <div *ngIf="data">
-  {{ data | json }}
-</div> -->
 <p>
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" class= "matTool">
     <span>My Application Movies</span>
   </mat-toolbar>
 </p>
@@ -19,18 +15,13 @@
       <mat-icon>share</mat-icon>
     </button>
 
-    
-   
     <span class="example-spacer"></span>
     <!-- <button mat-raised-button color="primary" (click)="openAddMovie()">ADD MOVIE</button>  -->
-    
   </mat-toolbar>
 </p>
 
 <p>
-  
-    <app-table-movie></app-table-movie>
-    <span class="example-spacer"></span>
-    <!-- <button mat-raised-button color="primary" (click)="DeleteMovie()">DELETE</button> -->
-  
+  <app-table-movie></app-table-movie>
+  <span class="example-spacer"></span>
+  <!-- <button mat-raised-button color="primary" (click)="DeleteMovie()">DELETE</button> -->
 </p>

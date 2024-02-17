@@ -1,22 +1,21 @@
-<mat-toolbar style="display:contents">
+<mat-toolbar class="matTool">
     
     <mat-card-header>ADD A NEW MOVIE</mat-card-header>
-    <mat-card>
-    <div style = "display: inline-flex; margin-left: 15px;">
+    <mat-card class="matCard">
+    <div class="matCardDiv">
         <mat-form-field (click) = "addMovie()">
-            <mat-card-actions>
 
+            <mat-card-actions>
             <mat-label for="title">Name</mat-label>
-            <input matInput type="text" name="title" [(ngModel)] = "title">
-            
+            <input class ="formInput" matInput type="text" name="title" [(ngModel)] = "title">
             </mat-card-actions>
             
             <mat-card-actions>
             <mat-label for="resume">Resume</mat-label>
-            <input matInput type="text" name="description" [(ngModel)] = "resume">
+            <input class ="formInput" matInput type="text" name="description" [(ngModel)] = "resume">
             </mat-card-actions>
             
-            <button type="submit" mat-raised-button color="primary" value = "add movie">ADD MOViE</button>
+            <button type="submit" mat-raised-button color="primary" class="btnAdd" value = "add movie">ADD MOVIE</button>
           </mat-form-field>
     </div>
   </mat-card>

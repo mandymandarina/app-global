@@ -20,7 +20,6 @@ export class MovieAddComponent implements OnInit {
 
 
   addMovie(){
-  debugger;
   this.movieAdded.emit({
     title: this.title,
     resume: this.resume,

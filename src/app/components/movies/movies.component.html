@@ -1,5 +1,5 @@
-<mat-toolbar  style="display: contents;">
-  <mat-card *ngIf="modifications" class="movie-card" style="background-color: #f5f5f5;">
+<mat-toolbar  class="matTool">
+  <mat-card *ngIf="modifications" class="movie-card">
     <mat-card-content class="card-header">Title:{{ modifications.title }}</mat-card-content>
     <mat-card-content class="card-content">Resume:{{ modifications.resume }}</mat-card-content>
     <mat-card-content *ngIf="modifications?.califications" class="califications">
@@ -9,7 +9,7 @@
 
   <span class="example-spacer"></span>
 
-  <div class="action-buttons" style="margin-left: 25px; margin-top: 10px; margin-bottom: 40px;">
+  <div class="action-buttons">
     <button mat-raised-button color="warn" [disabled]="!modifications" (click)="DeleteMovie(modifications!)">
       DELETE
     </button>

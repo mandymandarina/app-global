@@ -14,7 +14,6 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
   }
   DeleteMovie(modifications: Modifications) {
-    debugger;
     this.moviesDataService.deleteMovie(modifications);
   }
 }
