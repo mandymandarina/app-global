@@ -1,9 +1,9 @@
 <mat-toolbar  class="matTool">
   <mat-card *ngIf="modifications" class="movie-card">
     <mat-card-content class="card-header">Title:{{ modifications.title }}</mat-card-content>
-    <mat-card-content class="card-content">Resume:{{ modifications.resume }}</mat-card-content>
-    <mat-card-content *ngIf="modifications?.califications" class="califications">
-      Califications: {{ modifications?.califications }}
+    <mat-card-content class="card-content">End Year:{{ modifications.endYear }}</mat-card-content>
+    <mat-card-content *ngIf="modifications?.description" class="califications">
+      Califications: {{ modifications?.description }}
     </mat-card-content>
   </mat-card>
 

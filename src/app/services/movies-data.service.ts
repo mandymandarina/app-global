@@ -10,6 +10,7 @@ import { Modifications } from '../models/modifications';
   providedIn: 'root'
 })
 export class MoviesDataService {
+ 
   private apiUrl = 'https://gateway.marvel.com:443/v1/public/series';
   private publicKey = '9b092613ddc32e3e870abfe3c1f745c6';
   private privateKey = 'a13de1628d9451d856f0f8aa93e47db6b8d0be8a';
@@ -37,7 +38,6 @@ export class MoviesDataService {
   }
 
   private saveToLocalStorage(data: Modifications[]): void {
-    debugger;
     localStorage.setItem(this.localStorageKey, JSON.stringify(data));
     this.modifications = data;
   }

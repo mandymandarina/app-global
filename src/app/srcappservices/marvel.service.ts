@@ -29,4 +29,22 @@ export class MarvelService {
     localStorage.setItem('datosMarvel', JSON.stringify(data));
     console.log('Datos de Marvel guardados en el localStorage:', data);
   }
+
+  addDataToLocal(data: any): void {
+    const existingDataString = localStorage.getItem('datosMarvel');
+    let existingData: any[] = [];
+
+    if (existingDataString) {
+      existingData = JSON.parse(existingDataString);
+    }
+
+    existingData.push(data);
+    localStorage.setItem('datosMarvel', JSON.stringify(existingData));
+    console.log('Nuevo dato de Marvel agregado al localStorage:', data);
+  }
+
+  deteleDataLocal(): void {
+    localStorage.removeItem('datosMarvel');
+    console.log('Datos de Marvel eliminados del localStorage');
+  }
 }

@@ -20,24 +20,7 @@ export class AppComponent implements OnInit {
     //this.getSeriesDetails();
   }
 
- openAddMovie() {
-    const dialogRef = this._dialog.open(MovieAddComponent);
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) {
-          this.getMovie();
-        }
-      },
-    });
-  } 
 
-  getMovie() {
-    
-  }
-
-  DeleteMovie(){
-
-  }
 
   /* getSeriesDetails() {
     this.movieService.getSeriesDetails(this.seriesId)

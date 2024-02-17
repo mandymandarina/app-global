@@ -19,10 +19,14 @@ export class TableMovieComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
     this.marvelDataSubscription = this.marvelService.getMarvelData().subscribe({
-      next: (data: Modifications[]) => {
-        this.modifications = data;
+      next: (response: any) => {
+        if (response && response.data && Array.isArray(response.data.results)) {
+          this.modifications = response.data.results;
+          console.log(this.modifications, 'hola');
+        }else {
+          console.error('Los datos recibidos no son un array:', response.data.results);
+        }
       },
       error: (error) => {
         console.error('Error al obtener datos de Marvel:', error);
@@ -39,5 +43,10 @@ export class TableMovieComponent implements OnInit {
 
   addModifications(modifications: Modifications) {
     this.moviesDataService.addModification(modifications);
+  }
+
+  addMarvel(modifications: Modifications) {
+    debugger;
+    this.marvelService.addDataToLocal(modifications);
   }
 }

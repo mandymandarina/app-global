@@ -9,7 +9,7 @@ import { Modifications } from 'src/app/models/modifications';
 })
 export class MovieAddComponent implements OnInit {
   title: string | undefined;
-  resume: string | undefined;
+  endYear: string | undefined;
 
   @Output() movieAdded = new EventEmitter<Modifications>();
 
@@ -20,14 +20,18 @@ export class MovieAddComponent implements OnInit {
 
 
   addMovie(){
+    console.log(this.title, this.endYear);
+    
+    debugger;
   this.movieAdded.emit({
     title: this.title,
-    resume: this.resume,
-    califications: true
+    endYear: this.endYear,
+    description: true
 
   })
-  this.title = '',
-  this.resume= ''
+
+  this.title = '';
+  this.endYear= '';
    
   }
 
