@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Modifications } from 'src/app/models/modifications';
 import { MoviesDataService } from 'src/app/services/movies-data.service';
+import { MarvelService } from 'src/app/srcappservices/marvel.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table-movie',
@@ -8,16 +10,34 @@ import { MoviesDataService } from 'src/app/services/movies-data.service';
   styleUrls: ['./table-movie.component.css']
 })
 export class TableMovieComponent implements OnInit {
-modifications: Modifications[] | undefined;
+  modifications: Modifications[] = [];
+  marvelDataSubscription: Subscription | undefined;
 
-  constructor(public moviesDataService: MoviesDataService) { }
+  constructor(
+    public moviesDataService: MoviesDataService,
+    public marvelService: MarvelService
+  ) {}
 
   ngOnInit(): void {
-    this.modifications = this.moviesDataService.getModifications()
+    debugger;
+    this.marvelDataSubscription = this.marvelService.getMarvelData().subscribe({
+      next: (data: Modifications[]) => {
+        this.modifications = data;
+      },
+      error: (error) => {
+        console.error('Error al obtener datos de Marvel:', error);
+      }
+    });
   }
 
-  addModifications(modifications: Modifications){
-    this.moviesDataService.addModification(modifications)
+  ngOnDestroy(): void {
+    // Importante: desuscribirse para evitar posibles fugas de memoria
+    if (this.marvelDataSubscription) {
+      this.marvelDataSubscription.unsubscribe();
+    }
   }
 
+  addModifications(modifications: Modifications) {
+    this.moviesDataService.addModification(modifications);
+  }
 }

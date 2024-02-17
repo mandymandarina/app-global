@@ -1,6 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Md5 } from 'ts-md5';
 
 import { Modifications } from '../models/modifications';
 
@@ -8,19 +10,40 @@ import { Modifications } from '../models/modifications';
   providedIn: 'root'
 })
 export class MoviesDataService {
-  modifications: Modifications[] //
-  private apiUrl = 'https://moviesdatabase.p.rapidapi.com/titles/series/{seriesId}';
-  private apiKey = 'b023143cb5msh89dba369a5132a8p19fdcajsn1eb072b7436d';
+  private apiUrl = 'https://gateway.marvel.com:443/v1/public/series';
+  private publicKey = '9b092613ddc32e3e870abfe3c1f745c6';
+  private privateKey = 'a13de1628d9451d856f0f8aa93e47db6b8d0be8a';
+  private localStorageKey = 'modifications';
+  modifications: Modifications[] = [];
 
-  
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-    this.modifications = []
-   }
+  //muestra la fa
+  getModificationsFromAPI(): Observable<Modifications[]> {
+    const ts = new Date().getTime();
+    const hash = Md5.hashStr(`${ts}${this.privateKey}${this.publicKey}`);
 
-   getModifications(): Modifications[]  {
-  
-    const storedData = localStorage.getItem('modifications');
+    const params = {
+      apikey: this.publicKey,
+      ts: ts,
+      hash: hash
+    };
+
+    return this.http.get<Modifications[]>(this.apiUrl, { params: params })
+      .pipe(
+        tap(data => this.saveToLocalStorage(data)),
+        catchError(this.handleError)
+      );
+  }
+
+  private saveToLocalStorage(data: Modifications[]): void {
+    debugger;
+    localStorage.setItem(this.localStorageKey, JSON.stringify(data));
+    this.modifications = data;
+  }
+
+  getModifications(): Modifications[] {
+    const storedData = localStorage.getItem(this.localStorageKey);
 
     if (storedData === null) {
       this.modifications = [];
@@ -32,63 +55,29 @@ export class MoviesDataService {
         this.modifications = [];
       }
     }
-  
+
     return this.modifications;
-   }
+  }
 
-   /* addModification(modification: Modifications): void {
-
-    this.modifications.push(modification);
-    let modificationsAdd;
-
-    const storedData = localStorage.getItem('modifications');
-
-    if (storedData === null) {
-      modificationsAdd = [];
-      modificationsAdd.push(modification);
-      localStorage.setItem('modificationsAdd', JSON.stringify(modificationsAdd))
-    } else {
-      modificationsAdd = JSON.parse(localStorage.getItem('modificationsAdd'));
-      modificationsAdd.push(modification);
-      localStorage.setItem('modificationsAdd', JSON.stringify(modificationsAdd))
-    }
-   } */
-
-    addModification(modificacion: Modifications): void {
+  addModification(modificacion: Modifications): void {
     this.modifications.push(modificacion);
+    const datosAlmacenados = localStorage.getItem(this.localStorageKey);
+    const arregloModificaciones = datosAlmacenados ? JSON.parse(datosAlmacenados) : [];
+    arregloModificaciones.push(modificacion);
+    localStorage.setItem(this.localStorageKey, JSON.stringify(arregloModificaciones));
+  }
 
-  // Obtiene las modificaciones existentes de localStorage
-  const datosAlmacenados = localStorage.getItem('modifications');
+  deleteMovie(modificacion: Modifications) {
+    const index = this.modifications.findIndex(m => m === modificacion);
 
-  // Crea un nuevo array o parsea el existente
-  const arregloModificaciones = datosAlmacenados ? JSON.parse(datosAlmacenados) : [];
+    if (index !== -1) {
+      this.modifications.splice(index, 1);
+      localStorage.setItem(this.localStorageKey, JSON.stringify(this.modifications));
+    }
+  }
 
-  // Añade la nueva modificación al array
-  arregloModificaciones.push(modificacion);
-
-  // Actualiza localStorage con el array modificado
-  localStorage.setItem('modifications', JSON.stringify(arregloModificaciones));
-   } 
- 
-    deleteMovie(modificacion: Modifications) {
-      for(let i= 0; this.modifications.length; i++){
-        if(modificacion == this.modifications[i]){
-          this.modifications.splice(i, 1);
-          localStorage.setItem('modifications', JSON.stringify(this.modifications))
-        } 
-
-      }
-   } 
-
-  /* getSeriesDetails(seriesId: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'X-RapidAPI-Key': this.apiKey,
-      'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-    });
-
-    const url = `${this.apiUrl.replace('{seriesId}', seriesId)}`;
-
-    return this.http.get(url, { headers });
-  } */
+  private handleError(error: any): Observable<never> {
+    console.error('Error fetching modifications from API:', error);
+    return new Observable<never>();
+  }
 }
-
