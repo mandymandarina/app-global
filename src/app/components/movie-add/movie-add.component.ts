@@ -21,8 +21,6 @@ export class MovieAddComponent implements OnInit {
 
   addMovie(){
     console.log(this.title, this.endYear);
-    
-    debugger;
   this.movieAdded.emit({
     title: this.title,
     endYear: this.endYear,

@@ -1,25 +1,24 @@
-<div>
+<!-- <div>
     <table>
       <thead>
         <tr>
           <th>TITLE</th>
           <th>END YEAR</th>
-          <!-- Agrega más encabezados según la estructura real de tus objetos Modifications -->
+    
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let modification of modifications">
           <td>{{ modification.title }}</td>
           <td>{{ modification.endYear }}</td>
-          <!-- Muestra más propiedades según la estructura real de tus objetos Modifications -->
+      
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
 
 <app-movie-add (movieAdded)="addMarvel($event)"></app-movie-add>
 <div>
-<app-movies *ngFor = "let modification of modifications" [modifications]="modification"
-></app-movies>
+
 
 

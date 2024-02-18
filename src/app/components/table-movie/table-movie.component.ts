@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./table-movie.component.css']
 })
 export class TableMovieComponent implements OnInit {
-  modifications: Modifications[] = [];
+  //modifications: Modifications[] = [];
   marvelDataSubscription: Subscription | undefined;
 
   constructor(
@@ -22,8 +22,26 @@ export class TableMovieComponent implements OnInit {
     this.marvelDataSubscription = this.marvelService.getMarvelData().subscribe({
       next: (response: any) => {
         if (response && response.data && Array.isArray(response.data.results)) {
-          this.modifications = response.data.results;
-          console.log(this.modifications, 'hola');
+          this.marvelService.modifications = response.data.results;
+          if(!this.validateData()){
+            localStorage.setItem('modi', JSON.stringify(response.data.results));
+          }else {
+
+            let arrModi;
+            
+            const arr = localStorage.getItem('modi');
+
+            if (arr === null) {
+              arrModi = [];
+            } else {
+              arrModi = JSON.parse(arr);
+            }
+
+            
+            
+            this.marvelService.setDataSubscrip(arrModi);
+          }
+          console.log(response.data.results);
         }else {
           console.error('Los datos recibidos no son un array:', response.data.results);
         }
@@ -32,6 +50,8 @@ export class TableMovieComponent implements OnInit {
         console.error('Error al obtener datos de Marvel:', error);
       }
     });
+
+    
   }
 
   ngOnDestroy(): void {
@@ -41,12 +61,18 @@ export class TableMovieComponent implements OnInit {
     }
   }
 
-  addModifications(modifications: Modifications) {
+  /* addModifications(modifications: Modifications) {
     this.moviesDataService.addModification(modifications);
-  }
+  } */
 
   addMarvel(modifications: Modifications) {
-    debugger;
-    this.marvelService.addDataToLocal(modifications);
+    this.marvelService.addData(modifications);
   }
+
+  
+  validateData(){
+      return localStorage.getItem('modi');
+  }
+
+ 
 }

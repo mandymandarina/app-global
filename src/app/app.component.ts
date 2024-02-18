@@ -3,18 +3,24 @@ import { OnInit } from '@angular/core';
 import { MoviesDataService } from '../app/services/movies-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieAddComponent } from './components/movie-add/movie-add.component';
+import { MarvelService } from './srcappservices/marvel.service';
+import { Observable } from 'rxjs';
+import { Modifications } from './models/modifications';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  data: any;
-  seriesId = '%7BseriesId%7D'; 
-  seriesDetails: any; 
+DeleteMovie(arg0: Observable<Modifications[]>) {
+throw new Error('Method not implemented.');
+}
+  modifications$ = this.marvelService.getModiObservable();
 
-  constructor(private movieService: MoviesDataService, 
-              private _dialog:MatDialog) { }
+  constructor(private marvelService: MarvelService) {}
+
+ 
+
 
   ngOnInit(): void {
     //this.getSeriesDetails();

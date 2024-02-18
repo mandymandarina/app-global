@@ -1,17 +1,19 @@
 <mat-toolbar  class="matTool">
-  <mat-card *ngIf="modifications" class="movie-card">
-    <mat-card-content class="card-header">Title:{{ modifications.title }}</mat-card-content>
-    <mat-card-content class="card-content">End Year:{{ modifications.endYear }}</mat-card-content>
-    <mat-card-content *ngIf="modifications?.description" class="califications">
-      Califications: {{ modifications?.description }}
+  <mat-card *ngFor="let modification of movies" class="movie-card">
+    <mat-card-content class="card-header">Title:{{ modification.title }}</mat-card-content>
+    <mat-card-content class="card-content">End Year:{{ modification.endYear }}</mat-card-content>
+    <mat-card-content *ngIf="modification?.description" class="califications">
+      Califications: {{ modification.description }}
     </mat-card-content>
+    <div class="action-buttons">
+  <button mat-raised-button color="warn" [disabled]="!movies" (click)="DeleteMovie(modification)">
+      DELETE
+    </button> 
+  </div>
   </mat-card>
+
 
   <span class="example-spacer"></span>
 
-  <div class="action-buttons">
-    <button mat-raised-button color="warn" [disabled]="!modifications" (click)="DeleteMovie(modifications!)">
-      DELETE
-    </button>
-  </div>
+  
 </mat-toolbar>

@@ -3,7 +3,7 @@
     <mat-card-header>ADD A NEW MOVIE</mat-card-header>
     <mat-card class="matCard">
     <div class="matCardDiv">
-        <mat-form-field (click) = "addMovie()">
+        <mat-form-field>
 
             <mat-card-actions>
             <mat-label for="title">Name</mat-label>
@@ -15,7 +15,8 @@
             <input class ="formInput" matInput type="text" name="endYear" [(ngModel)] = "endYear">
             </mat-card-actions>
             
-            <button type="submit" mat-raised-button color="primary" class="btnAdd" value = "add movie">ADD MOVIE</button>
+            <button type="submit" mat-raised-button color="primary" class="btnAdd" value = "add movie"
+            (click) = "addMovie()">ADD MOVIE</button>
           </mat-form-field>
     </div>
   </mat-card>

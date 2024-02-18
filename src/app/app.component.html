@@ -1,16 +1,16 @@
 <p>
-  <mat-toolbar color="primary" class= "matTool">
+  <mat-toolbar color="primary" class="matTool">
     <span>My Application Movies</span>
   </mat-toolbar>
 </p>
 
 <p>
-  <mat-toolbar >
+  <mat-toolbar>
     <span>List Movies</span>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>favorite</mat-icon>
     </button>
-    
+
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>share</mat-icon>
     </button>
@@ -20,8 +20,10 @@
   </mat-toolbar>
 </p>
 
-<p>
-  <app-table-movie></app-table-movie>
-  <span class="example-spacer"></span>
-  <!-- <button mat-raised-button color="primary" (click)="DeleteMovie()">DELETE</button> -->
-</p>
+
+<app-table-movie></app-table-movie>
+<span class="example-spacer"></span>
+<!-- <button mat-raised-button color="primary" (click)="DeleteMovie()">DELETE</button> -->
+<div *ngIf="modifications$ | async as modifi">
+  <app-movies [modifications]="modifi"></app-movies>
+</div>
